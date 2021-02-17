@@ -17,6 +17,7 @@ public class XRRotationOnly : XRBaseInteractable
 
     Dictionary<XRBaseInteractor, SavedTransform> m_SavedTransforms = new Dictionary<XRBaseInteractor, SavedTransform>();
 
+    Transform m_OriginalSceneParent;
     Rigidbody m_Rb;
 
     // variable from dial interactable
@@ -42,10 +43,10 @@ public class XRRotationOnly : XRBaseInteractable
             if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Fixed)
             {
                 m_Rb.angularVelocity = Vector3.zero;
-                Quaternion difference = m_GrabbingInteractor.transform.rotation * Quaternion.Inverse( m_GrabbedRotation);
+                Quaternion grabRotation = m_Rb.transform.rotation;
+                Quaternion difference = m_GrabbingInteractor.attachTransform.rotation * Quaternion.Inverse(grabRotation);
                 
                 var rotationX = Quaternion.AngleAxis(difference.eulerAngles.x, Vector3.right);
-                Quaternion grabRotation = m_GrabbingInteractor.transform.rotation;
                 
                 m_Rb.MoveRotation(grabRotation * rotationX);
             }
@@ -67,8 +68,13 @@ public class XRRotationOnly : XRBaseInteractable
             interactor.attachTransform.position = m_Rb.worldCenterOfMass;
             interactor.attachTransform.rotation = m_Rb.rotation;
 
+            if (m_GrabbingInteractor == null)
+            {
+                m_OriginalSceneParent = transform.parent;
+                transform.parent = null;
+            }
             m_GrabbingInteractor = interactor;
-            m_GrabbedRotation = m_GrabbingInteractor.transform.rotation;
+            m_GrabbedRotation = m_GrabbingInteractor.transform.rotation.normalized;
 
         }
 
@@ -88,6 +94,10 @@ public class XRRotationOnly : XRBaseInteractable
                 m_SavedTransforms.Remove(interactor);
             }
         }
+
+        transform.parent = m_OriginalSceneParent;
+
+        m_GrabbingInteractor = null;
 
         base.OnSelectExit(interactor);
     }
