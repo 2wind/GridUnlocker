@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1287546517177534310}
   - component: {fileID: 6792244252794413485}
   - component: {fileID: 776969467}
-  - component: {fileID: 4942975322346435949}
+  - component: {fileID: 4248832881333147463}
   m_Layer: 8
   m_Name: Slot
   m_TagString: Untagged
@@ -72,7 +72,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4942975322346435949
+--- !u!114 &4248832881333147463
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,14 +81,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6843926898972329096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35ffe483d6934704b884767450fd49e5, type: 3}
+  m_Script: {fileID: 11500000, guid: c6b744b2dd145494a8017caf4dff3c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 4294967295
   m_OnFirstHoverEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -114,38 +114,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_CustomReticle: {fileID: 0}
-  m_AttachTransform: {fileID: 0}
-  m_AttachEaseInTime: 0.15
-  m_MovementType: 1
-  m_TrackPosition: 0
-  m_SmoothPosition: 0
-  m_SmoothPositionAmount: 5
-  m_TightenPosition: 0.5
-  m_TrackRotation: 1
-  m_SmoothRotation: 0
-  m_SmoothRotationAmount: 5
-  m_TightenRotation: 0.5
-  m_ThrowOnDetach: 0
-  m_ThrowSmoothingDuration: 0.25
-  m_ThrowSmoothingCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_ThrowVelocityScale: 1.5
-  m_ThrowAngularVelocityScale: 0.25
-  m_GravityOnDetach: 0
-  m_RetainTransformParent: 1
+  allowRotation: 1
+  allowTranslateY: 0
+  allowTranslateZ: 0
 --- !u!1001 &772994585473644076
 PrefabInstance:
   m_ObjectHideFlags: 0
