@@ -422,6 +422,11 @@ PrefabInstance:
       propertyPath: allowTranslateZ
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4248832881333147463, guid: f4ba15dbb65eccf48917b453511f820c,
+        type: 3}
+      propertyPath: translationRange
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4292227928550443677, guid: f4ba15dbb65eccf48917b453511f820c,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -739,7 +744,6 @@ GameObject:
   - component: {fileID: 1335048551}
   - component: {fileID: 1335048553}
   - component: {fileID: 1335048552}
-  - component: {fileID: 1335048554}
   m_Layer: 8
   m_Name: System
   m_TagString: Untagged
@@ -754,8 +758,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1335048550}
-  m_LocalRotation: {x: -0, y: -0, z: 0.15597968, w: 0.9877603}
-  m_LocalPosition: {x: -0.1, y: 1.044, z: 0.4043}
+  m_LocalRotation: {x: 0, y: 0, z: 0.14021003, w: 0.9901218}
+  m_LocalPosition: {x: -0.0535, y: 1.0574, z: 0.4043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1252726831}
@@ -766,7 +770,7 @@ Transform:
   - {fileID: 799741385}
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 17.947}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 16.12}
 --- !u!114 &1335048552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -858,19 +862,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1335048554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335048550}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e36a4b1a548e444ba0aa0963b3e1e43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Renderer: {fileID: 1252726828}
 --- !u!1 &1363128579
 GameObject:
   m_ObjectHideFlags: 0
