@@ -95,6 +95,15 @@ MonoBehaviour:
       m_Calls: []
   m_OnHoverEnter:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEnter:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4920459782064234844}
         m_TargetAssemblyTypeName: SelectionOutlineChildren, Assembly-CSharp
@@ -108,7 +117,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnHoverExit:
+  m_OnSelectExit:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4920459782064234844}
@@ -123,15 +132,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnLastHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExit:
-    m_PersistentCalls:
-      m_Calls: []
   m_OnActivate:
     m_PersistentCalls:
       m_Calls: []
