@@ -1036,6 +1036,11 @@ PrefabInstance:
       propertyPath: m_HideControllerOnSelect
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1837324663945620828, guid: d45e8a6999317d2428a51593da44d3ab,
+        type: 3}
+      propertyPath: m_PlayHapticsOnSelectEnter
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1837324664885972817, guid: d45e8a6999317d2428a51593da44d3ab,
         type: 3}
       propertyPath: StartingPosition

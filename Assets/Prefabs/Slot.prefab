@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6792244252794413485}
   - component: {fileID: 776969467}
   - component: {fileID: 4248832881333147463}
+  - component: {fileID: 4920459782064234844}
   m_Layer: 8
   m_Name: Slot
   m_TagString: Untagged
@@ -94,10 +95,34 @@ MonoBehaviour:
       m_Calls: []
   m_OnHoverEnter:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4920459782064234844}
+        m_TargetAssemblyTypeName: SelectionOutlineChildren, Assembly-CSharp
+        m_MethodName: Highlight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnHoverExit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4920459782064234844}
+        m_TargetAssemblyTypeName: SelectionOutlineChildren, Assembly-CSharp
+        m_MethodName: RemoveHighlight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnLastHoverExit:
     m_PersistentCalls:
       m_Calls: []
@@ -117,6 +142,20 @@ MonoBehaviour:
   allowRotation: 1
   allowTranslateY: 0
   allowTranslateZ: 0
+  translationRange: 3
+--- !u!114 &4920459782064234844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6843926898972329096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1dee15d3c17fb4da78a619a44ca967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Renderers: []
 --- !u!1001 &772994585473644076
 PrefabInstance:
   m_ObjectHideFlags: 0
