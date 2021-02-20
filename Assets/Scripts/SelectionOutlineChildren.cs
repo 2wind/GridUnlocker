@@ -14,7 +14,7 @@ public class SelectionOutlineChildren : MonoBehaviour
 
     private void Start()
     {
-        if(Renderers == null)
+        if(Renderers == null || Renderers.Length == 0)
         {
             Renderers = GetComponentsInChildren<Renderer>();
         }
