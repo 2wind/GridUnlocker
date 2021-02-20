@@ -25,7 +25,9 @@ public class XRRestrictedMovement : XRBaseInteractable
 
     // variable from dial interactable
     XRBaseInteractor m_GrabbingInteractor;
+    Quaternion m_GrabbedRotation;
 
+    Vector3 m_GrabbedPosition;
     // rotation axis is x axis (1, 0, 0)
 
     public bool allowRotation = true;
@@ -86,16 +88,38 @@ public class XRRestrictedMovement : XRBaseInteractable
 
                 if (allowRotation)
                 {
-                    // FIXME: make rotate relative to original parent, not world or hand.
                     // check world rotaion or local rotation(is desired)
                     m_Rb.angularVelocity = Vector3.zero;
-                    // find rotation and find difference
+
+                    // 1. 필요한 변수들을 가져온다
+                    // 이 오브젝트의 현재 Rotation (Quaternion)
                     Quaternion rigidBodyRotation = m_Rb.transform.rotation;
-                    Quaternion difference = m_GrabbingInteractor.attachTransform.rotation * Quaternion.Inverse(rigidBodyRotation);
+                    // 오브젝트의 Red arrow가 향하는 각도
+                    Vector3 xAxisOfThis = Vector3.right;
+                    
+                    // Hand의 직전 위치 m_GrabbedPosition
+                    // Hand의 현재 위치 m_GrabbingInteractor.attachTransform.position
+                    Vector3 currentInteractorPosition = m_GrabbingInteractor.attachTransform.position;
+                    // m_Rb의 현재 위치를 중심으로 삼아야 하지 않나.
+                    Vector3 oldCenterToController = m_GrabbedPosition - transform.position;
+                    oldCenterToController.Normalize();
+                    Vector3 centeroToController = currentInteractorPosition - transform.position;
+                    centeroToController.Normalize();
 
-                    var rotationX = Quaternion.AngleAxis(difference.eulerAngles.x, Vector3.right);
+                    // 2. 오브젝트 현재 위치에 대비해 각도를 계산한다.
 
-                    m_Rb.MoveRotation(rigidBodyRotation * rotationX);
+                    // 이 오브젝트의 각도 대비 전과 현재 hand의 이동에 의해 달라진 각도(float)
+                    float relativeInteractorAngle = Vector3.SignedAngle(oldCenterToController, centeroToController, xAxisOfThis);
+                    if (relativeInteractorAngle < 0) relativeInteractorAngle = 360 + relativeInteractorAngle;
+
+                    // 3. 이 각도만큼 위에서 구한 axis 대비로 회전해준다.
+                    Quaternion requiredRotation = Quaternion.AngleAxis(relativeInteractorAngle, xAxisOfThis);
+
+                    // 4. Rigidbody를 (현재 회전한 각도 * 3에서 구한 각도)만큼 회전시킨다.
+                    m_Rb.MoveRotation(rigidBodyRotation * requiredRotation);
+
+                    // 5. Position을 Update해준다.
+                    m_GrabbedPosition = currentInteractorPosition;
                 }
 
             }
@@ -125,7 +149,8 @@ public class XRRestrictedMovement : XRBaseInteractable
             }
             // save grabbing interactor for future use(i.e. calculating angle)
             m_GrabbingInteractor = interactor;
-            // m_GrabbedRotation = m_GrabbingInteractor.transform.rotation.normalized;
+            m_GrabbedPosition = m_GrabbingInteractor.attachTransform.position;
+            m_GrabbedRotation = m_GrabbingInteractor.attachTransform.rotation;
 
         }
 
@@ -162,5 +187,15 @@ public class XRRestrictedMovement : XRBaseInteractable
     {
         int interactorLayerMask = 1 << interactor.gameObject.layer;
         return base.IsSelectableBy(interactor) && (interactionLayerMask.value & interactorLayerMask) != 0;
+    }
+
+    private void OnDrawGizmos()
+    {
+        GizmoHelpers.DrawAxisArrows(transform, 3);
+        Ray ray = new Ray(transform.position, transform.right);
+        Gizmos.color = Color.white;
+        Gizmos.DrawRay(ray);
+        
+        
     }
 }
