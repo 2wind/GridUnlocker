@@ -19,9 +19,6 @@ public class Slot : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        // Draw gizmo at the position of slot with center yellow
-        Gizmos.color = new Color(1, 0, 0, 0.5f);
-        Gizmos.DrawCube(transform.position, new Vector3(0.05f, 0.5f, 0.5f));
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(transform.position, 0.01f);
     }
