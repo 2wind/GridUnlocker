@@ -8,7 +8,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class XRRestrictedMovement : XRBaseInteractable
 {
 
-    const float k_Step = 0.05f;
+    const float k_Step = 0.05f; // 0.05 unit snap
+    const float k_SnapRotation = 15; // 15 degree snap
 
     // variables from offset grabbable
     class SavedTransform
@@ -41,7 +42,9 @@ public class XRRestrictedMovement : XRBaseInteractable
 
     float m_TranslationRangeMin => -1 * (translationRange * k_Step + k_Step / 2);
     float m_TranslationRangeMax => m_TranslationRangeMin * -1;
-    
+
+    public bool snapTranslation = true;
+    public bool snapRotation = true;
 
     protected override void Awake()
     {
@@ -79,7 +82,7 @@ public class XRRestrictedMovement : XRBaseInteractable
 
                     //var worldPositionDelta = transform.TransformDirection(positionDelta);
                     // apply location difference
-                    
+
                     // change back to world position
                     var finalWorldPosition = m_OriginalSceneParent.transform.TransformPoint(finalPosition);
 
@@ -96,7 +99,7 @@ public class XRRestrictedMovement : XRBaseInteractable
                     Quaternion rigidBodyRotation = m_Rb.transform.rotation;
                     // 오브젝트의 Red arrow가 향하는 각도
                     Vector3 xAxisOfThis = Vector3.right;
-                    
+
                     // Hand의 직전 위치 m_GrabbedPosition
                     // Hand의 현재 위치 m_GrabbingInteractor.attachTransform.position
                     Vector3 currentInteractorPosition = m_GrabbingInteractor.attachTransform.position;
@@ -130,7 +133,7 @@ public class XRRestrictedMovement : XRBaseInteractable
     {
         if (interactor is XRDirectInteractor)
         {
-            
+
             SavedTransform savedTransform = new SavedTransform();
 
             savedTransform.OriginalPosition = interactor.attachTransform.localPosition;
@@ -151,6 +154,7 @@ public class XRRestrictedMovement : XRBaseInteractable
             m_GrabbingInteractor = interactor;
             m_GrabbedPosition = m_GrabbingInteractor.attachTransform.position;
             m_GrabbedRotation = m_GrabbingInteractor.attachTransform.rotation;
+
 
         }
 
@@ -177,8 +181,8 @@ public class XRRestrictedMovement : XRBaseInteractable
         // Set grabbing interactor to null again
         m_GrabbingInteractor = null;
 
-        // Snap position and rotation to nearest 0.05 and 15 degree
-
+        // Snap position and rotation to nearest 0.05 and 15 degree if enabled
+        TrySnapTransform();
 
         base.OnSelectExit(interactor);
     }
@@ -187,6 +191,33 @@ public class XRRestrictedMovement : XRBaseInteractable
     {
         int interactorLayerMask = 1 << interactor.gameObject.layer;
         return base.IsSelectableBy(interactor) && (interactionLayerMask.value & interactorLayerMask) != 0;
+    }
+
+    public void TrySnapTransform()
+    {
+        // meant only called once, at the time of select exit.
+        if (snapRotation)
+        {
+            var currentRotation = m_Rb.rotation;
+
+
+        }
+        if (snapTranslation)
+        {
+            var currentPosition = transform.localPosition;
+            currentPosition.y = RoundToNearest(currentPosition.y, k_Step);
+            currentPosition.z = RoundToNearest(currentPosition.z, k_Step);
+            // Use Tween to snap animate;
+
+
+        }
+    }
+
+    static float RoundToNearest(float number, float unit)
+    {
+        float remainder = number % unit;
+        float result = remainder > unit / 2 ? number + (unit - remainder): number - remainder;
+        return result;
     }
 
     private void OnDrawGizmos()

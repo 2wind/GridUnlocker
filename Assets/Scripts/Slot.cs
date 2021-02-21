@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(XRRestrictedMovement))]
 public class Slot : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    XRRestrictedMovement component;
+
+    public GameObject centerOfRotation;
+    void Awake()
     {
-        
+        if (centerOfRotation == null)
+        {
+            centerOfRotation = transform.Find("CenterOfRotation").gameObject;
+        }
+        component = GetComponent<XRRestrictedMovement>();
     }
 
     // Update is called once per frame
@@ -30,5 +37,19 @@ public class Slot : MonoBehaviour
         // smoothly or instantly(for now)
 
 
+    }
+
+    public void ShowVisualAid()
+    {
+        if (component.allowRotation)
+            centerOfRotation.GetComponent<Renderer>().enabled = true;
+
+
+    }
+
+    public void HideVisualAid()
+    {
+        if (component.allowRotation)
+            centerOfRotation.GetComponent<Renderer>().enabled = false;
     }
 }
