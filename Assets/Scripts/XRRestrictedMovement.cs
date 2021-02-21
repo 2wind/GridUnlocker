@@ -129,7 +129,14 @@ public class XRRestrictedMovement : XRBaseInteractable
         }
     }
 
-    protected override void OnSelectEnter(XRBaseInteractor interactor)
+    /// <inheritdoc />
+    protected override void OnSelectEntering(SelectEnterEventArgs args)
+    {
+        base.OnSelectEntering(args);
+        // Stub to make things work
+        OnSelectEnter(args.interactor);
+    }
+    void OnSelectEnter(XRBaseInteractor interactor)
     {
         if (interactor is XRDirectInteractor)
         {
@@ -158,10 +165,16 @@ public class XRRestrictedMovement : XRBaseInteractable
 
         }
 
-        base.OnSelectEnter(interactor);
     }
 
-    protected override void OnSelectExit(XRBaseInteractor interactor)
+    protected override void OnSelectExiting(SelectExitEventArgs args)
+    {
+        base.OnSelectExiting(args);
+        // Stub to make things work
+        OnSelectExit(args.interactor);
+    }
+
+    void OnSelectExit(XRBaseInteractor interactor)
     {
         if (interactor is XRDirectInteractor)
         {
@@ -184,7 +197,6 @@ public class XRRestrictedMovement : XRBaseInteractable
         // Snap position and rotation to nearest 0.05 and 15 degree if enabled
         TrySnapTransform();
 
-        base.OnSelectExit(interactor);
     }
 
     public override bool IsSelectableBy(XRBaseInteractor interactor)
