@@ -176,8 +176,10 @@ public class DialInteractable : XRBaseInteractable
         }
     }
 
-    protected override void OnSelectEnter(XRBaseInteractor interactor)
+    protected override void OnSelectEntering (SelectEnterEventArgs args)
     {
+        var interactor = args.interactor;
+        
         m_GrabbedRotation = interactor.transform.rotation;
         m_GrabbingInteractor = interactor;
 
@@ -196,12 +198,13 @@ public class DialInteractable : XRBaseInteractable
             m_SyncTransform.position = transform.position;
         }
         
-        base.OnSelectEnter(interactor);
+        base.OnSelectEntering(args);
     }
 
-    protected override void OnSelectExit(XRBaseInteractor interactor)
+    protected override void OnSelectExiting(SelectExitEventArgs args)
     {
-        base.OnSelectExit(interactor);
+        base.OnSelectExiting(args);
+
         
         if (SnapOnRelease && Steps > 0)
         {

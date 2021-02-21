@@ -20,11 +20,12 @@ public class SocketTarget : MonoBehaviour
     {
         var interactable = GetComponent<XRBaseInteractable>();
 
-        interactable.onSelectEnter.AddListener(SelectedSwitch);
+        interactable.selectEntered.AddListener(SelectedSwitch);
     }
 
-    public void SelectedSwitch(XRBaseInteractor interactor)
+    public void SelectedSwitch(SelectEnterEventArgs args)
     {
+        var interactor = args.interactor;
         var socketInteractor = interactor as XRExclusiveSocketInteractor;
         
         if(socketInteractor == null)

@@ -30,8 +30,9 @@ public class XROffsetGrabbable : XRGrabInteractable
         m_Rb = GetComponent<Rigidbody>();
     }
 
-    protected override void OnSelectEnter(XRBaseInteractor interactor)
+    protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
+        var interactor = args.interactor;
         if (interactor is XRDirectInteractor)
         {
             SavedTransform savedTransform = new SavedTransform();
@@ -48,11 +49,12 @@ public class XROffsetGrabbable : XRGrabInteractable
             interactor.attachTransform.rotation = haveAttach ? attachTransform.rotation : m_Rb.rotation;
         }
 
-        base.OnSelectEnter(interactor);
+        base.OnSelectEntering(args);
     }
 
-    protected override void OnSelectExit(XRBaseInteractor interactor)
+    protected override void OnSelectExiting(SelectExitEventArgs args)
     {
+        var interactor = args.interactor;
         if (interactor is XRDirectInteractor)
         {
             SavedTransform savedTransform = null;
@@ -65,7 +67,7 @@ public class XROffsetGrabbable : XRGrabInteractable
             }
         }
         
-        base.OnSelectExit(interactor);
+        base.OnSelectExiting(args);
     }
 
     public override bool IsSelectableBy(XRBaseInteractor interactor)

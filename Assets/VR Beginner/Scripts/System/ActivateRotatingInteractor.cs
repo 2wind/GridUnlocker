@@ -11,11 +11,12 @@ public class ActivateRotatingInteractor : MonoBehaviour
     void Start()
     {
         m_Interactor = GetComponent<XRBaseInteractor>();
-        m_Interactor.onSelectEnter.AddListener(Activated);
+        m_Interactor.selectEntered.AddListener(Activated);
     }
 
-    void Activated(XRBaseInteractable interactable)
+    void Activated(SelectEnterEventArgs args)
     {
+        var interactable = args.interactable;
         DialToActivate.RotatingRigidbody = interactable.GetComponentInChildren<Rigidbody>();
         DialToActivate.gameObject.SetActive(true);
 

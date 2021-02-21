@@ -15,11 +15,12 @@ public class TriggerAnimationEvent : MonoBehaviour
     {
         m_TriggerID = Animator.StringToHash(TriggerName);
         var interactor = GetComponent<XRBaseInteractor>();
-        interactor.onSelectEnter.AddListener(TriggerAnim);
+        interactor.selectEntered.AddListener(TriggerAnim);
     }
 
-    public void TriggerAnim(XRBaseInteractable interactable)
+    public void TriggerAnim(SelectEnterEventArgs args)
     {
+        var interactable = args.interactable;
         var animator = interactable.GetComponentInChildren<Animator>();
 
         if (animator != null)

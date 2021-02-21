@@ -112,7 +112,7 @@ public class MasterController : MonoBehaviour
         if (foundControllers.Count > 0)
             m_RightInputDevice = foundControllers[0];
 
-        if (m_Rig.TrackingOriginMode != TrackingOriginModeFlags.Floor)
+        if (m_Rig.trackingOriginMode != TrackingOriginModeFlags.Floor)
             m_Rig.cameraYOffset = 1.8f;
     }
 
@@ -145,12 +145,13 @@ public class MasterController : MonoBehaviour
 
     void RightTeleportUpdate()
     {
+
         Vector2 axisInput;
         m_RightInputDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out axisInput);
         
         m_RightLineVisual.enabled = axisInput.y > 0.5f;
-        
-        RightTeleportInteractor.InteractionLayerMask = m_LastFrameRightEnable ? m_OriginalRightMask : new LayerMask();
+
+        RightTeleportInteractor.interactionLayerMask  = m_LastFrameRightEnable ? m_OriginalRightMask : new LayerMask();
         
         if (axisInput.y <= 0.5f && m_PreviousRightClicked)
         {
@@ -192,7 +193,7 @@ public class MasterController : MonoBehaviour
         
         m_LeftLineVisual.enabled = axisInput.y > 0.5f;
         
-        LeftTeleportInteractor.InteractionLayerMask = m_LastFrameLeftEnable ? m_OriginalLeftMask : new LayerMask();
+        LeftTeleportInteractor.interactionLayerMask = m_LastFrameLeftEnable ? m_OriginalLeftMask : new LayerMask();
         
         if (axisInput.y <= 0.5f && m_PreviousLeftClicked)
         {

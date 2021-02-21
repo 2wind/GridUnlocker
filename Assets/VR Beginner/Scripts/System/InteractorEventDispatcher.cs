@@ -7,11 +7,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(XRBaseInteractor))]
 public class InteractorEventDispatcher : MonoBehaviour
 {
-    public XRInteractorEvent OnSelectedEnter;
+    public SelectEnterEvent OnSelectedEnter;
 
     void Awake()
     {
         var interactor = GetComponent<XRBaseInteractor>();
-        interactor.onSelectEnter.AddListener(interactable => { OnSelectedEnter.Invoke(interactable); } );
+        interactor.selectEntered.AddListener(interactable => { OnSelectedEnter.Invoke(interactable); } );
     }
 }
