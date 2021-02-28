@@ -1198,8 +1198,6 @@ MonoBehaviour:
   DisableSetupForDebug: 0
   StartingPosition: {fileID: 0}
   TeleporterParent: {fileID: 0}
-  RightTeleportInteractor: {fileID: 0}
-  LeftTeleportInteractor: {fileID: 0}
   RightDirectInteractor: {fileID: 1837324663945620828}
   LeftDirectInteractor: {fileID: 1837324665045843313}
   RightTractorBeam: {fileID: 1358349930}

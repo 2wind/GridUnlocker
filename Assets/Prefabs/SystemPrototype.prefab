@@ -72,22 +72,50 @@ MonoBehaviour:
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  m_OnFirstHoverEnter:
+  m_CustomReticle: {fileID: 0}
+  m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
-  m_OnHoverEnter:
+  m_LastHoverExited:
     m_PersistentCalls:
       m_Calls: []
-  m_OnHoverExit:
+  m_HoverEntered:
     m_PersistentCalls:
       m_Calls: []
-  m_OnLastHoverExit:
+  m_HoverExited:
     m_PersistentCalls:
       m_Calls: []
-  m_OnSelectEnter:
+  m_SelectEntered:
     m_PersistentCalls:
       m_Calls: []
-  m_OnSelectExit:
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
     m_PersistentCalls:
       m_Calls: []
   m_OnActivate:
@@ -96,7 +124,6 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_CustomReticle: {fileID: 0}
   m_AttachTransform: {fileID: 0}
   m_AttachEaseInTime: 0.15
   m_MovementType: 1
@@ -127,7 +154,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_ThrowVelocityScale: 1.5
   m_ThrowAngularVelocityScale: 0.25
-  m_GravityOnDetach: 0
+  m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
 --- !u!114 &1291013243612644886
 MonoBehaviour:
@@ -141,6 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d2999d01952fc94abe437d3c8252e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puzzleName: Prototype
+  checkList:
+  - {fileID: 4547276042891575971}
+  checker: {fileID: 4547276042891575971}
 --- !u!1 &4547276042025488840
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +511,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4775151850897201053}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4547276042891575971 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9034102350288295230, guid: b116340ee05a33741b2d1a074d923325,
+    type: 3}
+  m_PrefabInstance: {fileID: 4775151850897201053}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2084aa6315ea66f479645dd64d67dbfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4779744392184407396
 PrefabInstance:
   m_ObjectHideFlags: 0

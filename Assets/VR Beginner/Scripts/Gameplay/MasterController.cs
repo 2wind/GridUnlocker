@@ -22,8 +22,8 @@ public class MasterController : MonoBehaviour
     public GameObject TeleporterParent;
     
     [Header("Reference")]
-    public XRRayInteractor RightTeleportInteractor;
-    public XRRayInteractor LeftTeleportInteractor;
+    //public XRRayInteractor RightTeleportInteractor;
+    //public XRRayInteractor LeftTeleportInteractor;
 
     public XRDirectInteractor RightDirectInteractor;
     public XRDirectInteractor LeftDirectInteractor;
@@ -75,17 +75,17 @@ public class MasterController : MonoBehaviour
 
     void Start()
     {
-        m_RightLineVisual = RightTeleportInteractor.GetComponent<XRInteractorLineVisual>();
-        m_RightLineVisual.enabled = false;
+        //m_RightLineVisual = RightTeleportInteractor.GetComponent<XRInteractorLineVisual>();
+        //m_RightLineVisual.enabled = false;
 
-        m_LeftLineVisual = LeftTeleportInteractor.GetComponent<XRInteractorLineVisual>();
-        m_LeftLineVisual.enabled = false;
+        //m_LeftLineVisual = LeftTeleportInteractor.GetComponent<XRInteractorLineVisual>();
+        //m_LeftLineVisual.enabled = false;
 
-        m_RightController = RightTeleportInteractor.GetComponent<XRReleaseController>();
-        m_LeftController = LeftTeleportInteractor.GetComponent<XRReleaseController>();
+        //m_RightController = RightTeleportInteractor.GetComponent<XRReleaseController>();
+        //m_LeftController = LeftTeleportInteractor.GetComponent<XRReleaseController>();
 
-        m_OriginalRightMask = RightTeleportInteractor.interactionLayerMask;
-        m_OriginalLeftMask = LeftTeleportInteractor.interactionLayerMask;
+        //m_OriginalRightMask = RightTeleportInteractor.interactionLayerMask;
+        //m_OriginalLeftMask = LeftTeleportInteractor.interactionLayerMask;
         
         if (!DisableSetupForDebug)
         {
@@ -136,11 +136,11 @@ public class MasterController : MonoBehaviour
     
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-            Application.Quit();
+        //if(Input.GetKeyDown(KeyCode.Escape))
+        //    Application.Quit();
         
-        RightTeleportUpdate();
-        LeftTeleportUpdate();
+        //RightTeleportUpdate();
+        //LeftTeleportUpdate();
     }
 
     void RightTeleportUpdate()
@@ -151,7 +151,7 @@ public class MasterController : MonoBehaviour
         
         m_RightLineVisual.enabled = axisInput.y > 0.5f;
 
-        RightTeleportInteractor.interactionLayerMask  = m_LastFrameRightEnable ? m_OriginalRightMask : new LayerMask();
+        //RightTeleportInteractor.interactionLayerMask  = m_LastFrameRightEnable ? m_OriginalRightMask : new LayerMask();
         
         if (axisInput.y <= 0.5f && m_PreviousRightClicked)
         {
@@ -193,7 +193,7 @@ public class MasterController : MonoBehaviour
         
         m_LeftLineVisual.enabled = axisInput.y > 0.5f;
         
-        LeftTeleportInteractor.interactionLayerMask = m_LastFrameLeftEnable ? m_OriginalLeftMask : new LayerMask();
+        //LeftTeleportInteractor.interactionLayerMask = m_LastFrameLeftEnable ? m_OriginalLeftMask : new LayerMask();
         
         if (axisInput.y <= 0.5f && m_PreviousLeftClicked)
         {
