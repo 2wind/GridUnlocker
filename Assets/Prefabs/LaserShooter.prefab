@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 584969809}
   - component: {fileID: 584969808}
   - component: {fileID: 584969807}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9029219469505902522}
   - component: {fileID: 9029219469505902521}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LaserPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 9029219469686614901}
   - component: {fileID: 9029219469686614898}
   - component: {fileID: 9029219469686614900}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LaserShooter
   m_TagString: Interactable
   m_Icon: {fileID: 0}

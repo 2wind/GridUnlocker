@@ -32,21 +32,20 @@ public class LaserShooter : MonoBehaviour
             // cast ray toward x position
             lineRenderer.enabled = true;
 
-            // layermask 9 is Hand; hands should not block laser (for easy playing)
-            int layerMask = 1 << 9;
-            layerMask = ~layerMask;
+            // layermask 12 is LaserBlocker
+            int layerMask = 1 << 12;
+            
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, Mathf.Infinity, layerMask))
             {
                 // if ray hit object with tag "Interactable":
                 // then try to activate it.
-                if (hit.transform.CompareTag("Interactable") && hit.collider.gameObject.GetComponent<LaserEvent>() != null)
+                if (hit.collider.CompareTag("Interactable") && hit.collider.gameObject.GetComponent<LaserEvent>() != null)
                 {
                     // target is set and interactable
-                    target = hit.transform.gameObject;
+                    target = hit.collider.gameObject;
                     target.GetComponent<LaserEvent>().LaserIsActive();
-
                 }
                 else
                 {
@@ -104,5 +103,14 @@ public class LaserShooter : MonoBehaviour
     public void ToggleLaser()
     {
         isLaserFiring = !isLaserFiring;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (isLaserFiring)
+        {
+            Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.right));
+            Gizmos.DrawRay(ray);
+        }
     }
 }

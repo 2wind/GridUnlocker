@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 763396376}
   - component: {fileID: 763396375}
   - component: {fileID: 763396374}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,8 +106,8 @@ GameObject:
   - component: {fileID: 9034102350288295232}
   - component: {fileID: 9034102350288295230}
   - component: {fileID: 9034102350288295233}
-  - component: {fileID: 9034102350288295231}
-  m_Layer: 0
+  - component: {fileID: 1032117338616977418}
+  m_Layer: 12
   m_Name: LaserReceiver
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -175,8 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c9262142ff033244a6c7f879edc217f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &9034102350288295231
-SphereCollider:
+--- !u!136 &1032117338616977418
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -185,6 +185,7 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.02
+  m_Radius: 0.015
+  m_Height: 0.01
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

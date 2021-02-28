@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class LaserEvent : MonoBehaviour
 {
 
+
+
     public bool isOnLaser = false;
 
     public UnityEvent OnLaserReceived;
