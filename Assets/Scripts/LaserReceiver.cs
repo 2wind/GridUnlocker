@@ -18,6 +18,6 @@ public class LaserReceiver : MonoBehaviour
 
     public void LaserReceived()
     {
-        Debug.Log("Hooray!");
+        //Debug.Log("Hooray!");
     }
 }

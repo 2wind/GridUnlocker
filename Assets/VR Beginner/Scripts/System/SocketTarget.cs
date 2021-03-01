@@ -13,9 +13,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class SocketTarget : MonoBehaviour
 {
     public string SocketType;
+    [Obsolete]
     public XRInteractableEvent SocketedEvent;
     public bool DisableSocketOnSocketed;
-    
+
+    [Obsolete]
     void Awake()
     {
         var interactable = GetComponent<XRBaseInteractable>();
@@ -23,6 +25,7 @@ public class SocketTarget : MonoBehaviour
         interactable.selectEntered.AddListener(SelectedSwitch);
     }
 
+    [Obsolete]
     public void SelectedSwitch(SelectEnterEventArgs args)
     {
         var interactor = args.interactor;

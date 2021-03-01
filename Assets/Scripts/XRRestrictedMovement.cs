@@ -3,10 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody))]
 public class XRRestrictedMovement : XRBaseInteractable
 {
+    public bool allowRotation = true;
+    [SerializeField]
+    public bool allowTranslateY = true;
+    public bool allowTranslateZ = true;
+
+    // limit range +- translationRange * 0.05f + -0.025f(for margin)
+    // if 3 ==> -0.175 ~ 0.175(will snap to 0.15)
+    [Range(1, 5)]
+    public int translationRange = 3;
+
+
+    float m_TranslationRangeMin => -1 * (translationRange * k_Step + k_Step / 2);
+    float m_TranslationRangeMax => m_TranslationRangeMin * -1;
+
+    public bool snapTranslation = true;
+    public bool snapRotation = true;
+
+
 
     const float k_Step = 0.05f; // 0.05 unit snap
     const float k_SnapRotation = 15; // 15 degree snap
@@ -30,21 +49,8 @@ public class XRRestrictedMovement : XRBaseInteractable
 
     Vector3 m_GrabbedPosition;
     // rotation axis is x axis (1, 0, 0)
+    
 
-    public bool allowRotation = true;
-    public bool allowTranslateY = true;
-    public bool allowTranslateZ = true;
-
-    // limit range +- translationRange * 0.05f + -0.025f(for margin)
-    // if 3 ==> -0.175 ~ 0.175(will snap to 0.15)
-    [Range(1, 5)]
-    public int translationRange = 3;
-
-    float m_TranslationRangeMin => -1 * (translationRange * k_Step + k_Step / 2);
-    float m_TranslationRangeMax => m_TranslationRangeMin * -1;
-
-    public bool snapTranslation = true;
-    public bool snapRotation = true;
 
     protected override void Awake()
     {
@@ -241,4 +247,6 @@ public class XRRestrictedMovement : XRBaseInteractable
         
         
     }
+
+
 }
