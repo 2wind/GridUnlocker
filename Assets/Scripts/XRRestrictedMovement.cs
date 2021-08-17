@@ -41,6 +41,8 @@ public class XRRestrictedMovement : XRBaseInteractable
     Dictionary<XRBaseInteractor, SavedTransform> m_SavedTransforms = new Dictionary<XRBaseInteractor, SavedTransform>();
 
     Transform m_OriginalSceneParent;
+    Vector3 m_InitialParentPosition;
+    
     Rigidbody m_Rb;
 
     // variable from dial interactable
@@ -100,34 +102,34 @@ public class XRRestrictedMovement : XRBaseInteractable
                     // check world rotaion or local rotation(is desired)
                     m_Rb.angularVelocity = Vector3.zero;
 
-                    // 1. ÇÊ¿äÇÑ º¯¼öµéÀ» °¡Á®¿Â´Ù
-                    // ÀÌ ¿ÀºêÁ§Æ®ÀÇ ÇöÀç Rotation (Quaternion)
+                    // 1. ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
+                    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Rotation (Quaternion)
                     Quaternion rigidBodyRotation = m_Rb.transform.rotation;
-                    // ¿ÀºêÁ§Æ®ÀÇ Red arrow°¡ ÇâÇÏ´Â °¢µµ
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Red arrowï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
                     Vector3 xAxisOfThis = Vector3.right;
 
-                    // HandÀÇ Á÷Àü À§Ä¡ m_GrabbedPosition
-                    // HandÀÇ ÇöÀç À§Ä¡ m_GrabbingInteractor.attachTransform.position
+                    // Handï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ m_GrabbedPosition
+                    // Handï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ m_GrabbingInteractor.attachTransform.position
                     Vector3 currentInteractorPosition = m_GrabbingInteractor.attachTransform.position;
-                    // m_RbÀÇ ÇöÀç À§Ä¡¸¦ Áß½ÉÀ¸·Î »ï¾Æ¾ß ÇÏÁö ¾Ê³ª.
+                    // m_Rbï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê³ï¿½.
                     Vector3 oldCenterToController = m_GrabbedPosition - transform.position;
                     oldCenterToController.Normalize();
                     Vector3 centeroToController = currentInteractorPosition - transform.position;
                     centeroToController.Normalize();
 
-                    // 2. ¿ÀºêÁ§Æ® ÇöÀç À§Ä¡¿¡ ´ëºñÇØ °¢µµ¸¦ °è»êÇÑ´Ù.
+                    // 2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 
-                    // ÀÌ ¿ÀºêÁ§Æ®ÀÇ °¢µµ ´ëºñ Àü°ú ÇöÀç handÀÇ ÀÌµ¿¿¡ ÀÇÇØ ´Þ¶óÁø °¢µµ(float)
+                    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ handï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(float)
                     float relativeInteractorAngle = Vector3.SignedAngle(oldCenterToController, centeroToController, xAxisOfThis);
                     if (relativeInteractorAngle < 0) relativeInteractorAngle = 360 + relativeInteractorAngle;
 
-                    // 3. ÀÌ °¢µµ¸¸Å­ À§¿¡¼­ ±¸ÇÑ axis ´ëºñ·Î È¸ÀüÇØÁØ´Ù.
+                    // 3. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ axis ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
                     Quaternion requiredRotation = Quaternion.AngleAxis(relativeInteractorAngle, xAxisOfThis);
 
-                    // 4. Rigidbody¸¦ (ÇöÀç È¸ÀüÇÑ °¢µµ * 3¿¡¼­ ±¸ÇÑ °¢µµ)¸¸Å­ È¸Àü½ÃÅ²´Ù.
+                    // 4. Rigidbodyï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ * 3ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½Å­ È¸ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½.
                     m_Rb.MoveRotation(rigidBodyRotation * requiredRotation);
 
-                    // 5. PositionÀ» UpdateÇØÁØ´Ù.
+                    // 5. Positionï¿½ï¿½ Updateï¿½ï¿½ï¿½Ø´ï¿½.
                     m_GrabbedPosition = currentInteractorPosition;
                 }
 
@@ -161,6 +163,8 @@ public class XRRestrictedMovement : XRBaseInteractable
             if (m_GrabbingInteractor == null)
             {
                 m_OriginalSceneParent = transform.parent;
+                m_InitialParentPosition = transform.parent.position;
+                m_OriginalSceneParent.GetComponent<XROffsetGrabbable>().enabled = false;
                 transform.parent = null;
             }
             // save grabbing interactor for future use(i.e. calculating angle)
@@ -196,6 +200,7 @@ public class XRRestrictedMovement : XRBaseInteractable
 
         // Retain original transform parent
         transform.parent = m_OriginalSceneParent;
+        transform.parent.GetComponent<XROffsetGrabbable>().enabled = true;
 
         // Set grabbing interactor to null again
         m_GrabbingInteractor = null;
@@ -226,7 +231,8 @@ public class XRRestrictedMovement : XRBaseInteractable
             currentPosition.y = RoundToNearest(currentPosition.y, k_Step);
             currentPosition.z = RoundToNearest(currentPosition.z, k_Step);
             // Use Tween to snap animate;
-
+            
+            m_Rb.MovePosition(transform.TransformPoint(currentPosition));
 
         }
     }
