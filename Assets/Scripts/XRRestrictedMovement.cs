@@ -102,35 +102,37 @@ public class XRRestrictedMovement : XRBaseInteractable
                     // check world rotaion or local rotation(is desired)
                     m_Rb.angularVelocity = Vector3.zero;
 
-                    // 1. �ʿ��� �������� �����´�
-                    // �� ������Ʈ�� ���� Rotation (Quaternion)
-                    Quaternion rigidBodyRotation = m_Rb.transform.rotation;
-                    // ������Ʈ�� Red arrow�� ���ϴ� ����
-                    Vector3 xAxisOfThis = Vector3.right;
+                    // 1. Get rotation of rigidbody (Quaternion)
+                    Quaternion rigidBodyRotation = m_Rb.rotation;
+                    // We want local x axis too.
 
-                    // Hand�� ���� ��ġ m_GrabbedPosition
-                    // Hand�� ���� ��ġ m_GrabbingInteractor.attachTransform.position
+                    Vector3 xAxisOfThis = transform.right;
+                    
+
+                    // Previous position of hand when first grabbed : m_GrabbedPosition
+                    // Current Position:  m_GrabbingInteractor.attachTransform.position
                     Vector3 currentInteractorPosition = m_GrabbingInteractor.attachTransform.position;
-                    // m_Rb�� ���� ��ġ�� �߽����� ��ƾ� ���� �ʳ�.
+                    // Subtract.
                     Vector3 oldCenterToController = m_GrabbedPosition - transform.position;
                     oldCenterToController.Normalize();
                     Vector3 centeroToController = currentInteractorPosition - transform.position;
                     centeroToController.Normalize();
 
-                    // 2. ������Ʈ ���� ��ġ�� ����� ������ ����Ѵ�.
+                    // 2. Calculate angle between two vectors.
 
-                    // �� ������Ʈ�� ���� ��� ���� ���� hand�� �̵��� ���� �޶��� ����(float)
+                    // Calculate signed angle between two vectors, with local x axis as axis.
                     float relativeInteractorAngle = Vector3.SignedAngle(oldCenterToController, centeroToController, xAxisOfThis);
                     if (relativeInteractorAngle < 0) relativeInteractorAngle = 360 + relativeInteractorAngle;
 
-                    // 3. �� ������ŭ ������ ���� axis ���� ȸ�����ش�.
+                    // 3. reconstruct rotation from angle and x axis used.
                     Quaternion requiredRotation = Quaternion.AngleAxis(relativeInteractorAngle, xAxisOfThis);
+                    
 
-                    // 4. Rigidbody�� (���� ȸ���� ���� * 3���� ���� ����)��ŭ ȸ����Ų��.
+                    // 4. generate rotation.
                     m_Rb.MoveRotation(rigidBodyRotation * requiredRotation);
 
-                    // 5. Position�� Update���ش�.
                     m_GrabbedPosition = currentInteractorPosition;
+                    // 5. update position.
                 }
 
             }
