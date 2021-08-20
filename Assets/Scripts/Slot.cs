@@ -15,6 +15,8 @@ public class Slot : MonoBehaviour
             centerOfRotation = transform.Find("CenterOfRotation").gameObject;
         }
         component = GetComponent<XRRestrictedMovement>();
+
+        GetComponent<Rigidbody>().centerOfMass = centerOfRotation.transform.position;
     }
 
     // Update is called once per frame
