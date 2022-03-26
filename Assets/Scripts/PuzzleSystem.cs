@@ -12,16 +12,18 @@ public class PuzzleSystem : MonoBehaviour
 
     public LaserEvent checker;
 
-        
+    private XRRestrictedMovement[] grabbableChildren;
+
+
     void Awake()
     {
-        
+        grabbableChildren = GetComponentsInChildren<XRRestrictedMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-           
+
     }
 
     private void OnEnable()
@@ -46,7 +48,23 @@ public class PuzzleSystem : MonoBehaviour
     {
 
         return checkList.TrueForAll(element => element.isOnLaser);
-        
 
+
+    }
+
+    public void EnableGrabbableChildren()
+    {
+        foreach (var child in grabbableChildren)
+        {
+            child.enabled = true;
+        }
+    }
+
+    public void DisableGrabbableChildren()
+    {
+        foreach (var child in grabbableChildren)
+        {
+            child.enabled = false;
+        }
     }
 }
