@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.UI;
 
 
 [DisallowMultipleComponent]
@@ -51,7 +52,8 @@ public class XRRestrictedMovement : XRBaseInteractable
 
     Vector3 m_GrabbedPosition;
     // rotation axis is x axis (1, 0, 0)
-    
+
+    Text debugText;
 
 
     protected override void Awake()
