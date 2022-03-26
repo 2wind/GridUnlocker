@@ -107,8 +107,7 @@ public class XRRestrictedMovement : XRBaseInteractable
                     // 1. Get rotation of rigidbody (Quaternion)
                     Quaternion rigidBodyRotation = m_Rb.rotation;
                     // We want local x axis too.
-
-                    Vector3 xAxisOfThis = transform.right;
+                    Vector3 xAxisOfThis = Vector3.right;
                     
 
                     // Previous position of hand when first grabbed : m_GrabbedPosition
@@ -117,18 +116,19 @@ public class XRRestrictedMovement : XRBaseInteractable
                     // Subtract.
                     Vector3 oldCenterToController = m_GrabbedPosition - transform.position;
                     oldCenterToController.Normalize();
-                    Vector3 centeroToController = currentInteractorPosition - transform.position;
-                    centeroToController.Normalize();
+                    Vector3 newCenterToController = currentInteractorPosition - transform.position;
+                    newCenterToController.Normalize();
 
                     // 2. Calculate angle between two vectors.
 
                     // Calculate signed angle between two vectors, with local x axis as axis.
-                    float relativeInteractorAngle = Vector3.SignedAngle(oldCenterToController, centeroToController, xAxisOfThis);
+                    float relativeInteractorAngle = Vector3.SignedAngle(oldCenterToController, newCenterToController, xAxisOfThis);
                     if (relativeInteractorAngle < 0) relativeInteractorAngle = 360 + relativeInteractorAngle;
+                    //Debug.Log($"angle: {relativeInteractorAngle}");
 
                     // 3. reconstruct rotation from angle and x axis used.
                     Quaternion requiredRotation = Quaternion.AngleAxis(relativeInteractorAngle, xAxisOfThis);
-                    
+                    //Debug.Log(requiredRotation.eulerAngles);
 
                     // 4. generate rotation.
                     m_Rb.MoveRotation(rigidBodyRotation * requiredRotation);
